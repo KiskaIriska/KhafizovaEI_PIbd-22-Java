@@ -13,16 +13,20 @@ import java.awt.event.ActionEvent;
 
 public class AttackAircraftPanel {
 
-	private JFrame AttackAircraftFrame;
-	private AttackAircrafts aircraft;
-	private JPanel panel;
+	private JFrame frame;
 
+    private  ITransport aircraft; 
+	private JPanel Panel;
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					AttackAircraftPanel window = new AttackAircraftPanel();
-					window.AttackAircraftFrame.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -30,76 +34,96 @@ public class AttackAircraftPanel {
 		});
 	}
 
+	/**
+	 * Create the application.
+	 */
 	public AttackAircraftPanel() {
 		initialize();
 	}
 
-	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void initialize() {
  
-		AttackAircraftFrame = new JFrame();
-		AttackAircraftFrame.setBounds(100, 100, 700, 500);
-		AttackAircraftFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AttackAircraftFrame.getContentPane().setLayout(null);
+		frame = new JFrame();
+		frame.setBounds(100, 100, 700, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		Random rnd = new Random();
 		
-		JButton ButtonCreate = new JButton("\u0421\u043E\u0437\u0434\u0430\u0442\u044C ");
-		ButtonCreate.addActionListener(new ActionListener() {
+		JButton ButtonCreateAttackAircraft = new JButton("\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0448\u0442\u0443\u0440\u043C\u043E\u0432\u0438\u043A");
+		ButtonCreateAttackAircraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aircraft = new AttackAircrafts(rnd.nextInt(100) + 300, rnd.nextInt(1000) + 2000, Color.GRAY, Color.DARK_GRAY, true, true, true);
 				aircraft.SetPosition(rnd.nextInt(100) + 300, rnd.nextInt(100) + 100, 550, 500);
-				panel = new MyPanel();
-				panel.setBorder(new BevelBorder(BevelBorder.LOWERED, 
+				Panel = new MyPanel(aircraft);
+				Panel.setBorder(new BevelBorder(BevelBorder.LOWERED, 
 						null, null, null, null));
-				panel.setBounds(30, 10, 630, 370);
-				AttackAircraftFrame.getContentPane().add(panel);
-				((MyPanel) panel).drawPanel(aircraft);
-				panel.repaint();
+				Panel.setBounds(30, 10, 630, 370);
+				frame.getContentPane().add(Panel);
+				Panel.repaint();
 			}
 		});
-		ButtonCreate.setBounds(122, 414, 89, 23); 
-		AttackAircraftFrame.getContentPane().add(ButtonCreate);
+		ButtonCreateAttackAircraft.setBounds(63, 414, 163, 23); 
+		frame.getContentPane().add(ButtonCreateAttackAircraft);
 
-		JButton ButtonLeft = new JButton("<<");
-		ButtonLeft.addActionListener(new ActionListener() {
+		JButton Button_Right = new JButton("<<");
+		Button_Right.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aircraft.MoveTransport(Direction.Left);
-				panel.repaint();
+				Panel.repaint();
 			}
 		});
-		ButtonLeft.setBounds(269, 414, 57, 23);
-		AttackAircraftFrame.getContentPane().add(ButtonLeft);
+		Button_Right.setBounds(238, 414, 57, 23);
+		frame.getContentPane().add(Button_Right);
 
-		JButton ButtonRight = new JButton(">>");
-		ButtonRight.addActionListener(new ActionListener() {
+		JButton Button_Left = new JButton(">>");
+		Button_Left.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aircraft.MoveTransport(Direction.Right);
-				panel.repaint();
+				Panel.repaint();
 			}
 		});
-		ButtonRight.setBounds(435, 414, 57, 23);
-		AttackAircraftFrame.getContentPane().add(ButtonRight);
+		Button_Left.setBounds(398, 414, 57, 23);
+		frame.getContentPane().add(Button_Left);
 
-		JButton ButtonDown = new JButton("v");
-		ButtonDown.addActionListener(new ActionListener() {
+		JButton Button_Down = new JButton("v");
+		Button_Down.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				aircraft.MoveTransport(Direction.Down);
-				panel.repaint();
+				Panel.repaint();
 			}
 		});
-		ButtonDown.setBounds(336, 427, 89, 23);
-		AttackAircraftFrame.getContentPane().add(ButtonDown);
+		Button_Down.setBounds(299, 427, 89, 23);
+		frame.getContentPane().add(Button_Down);
 
-		JButton ButtonUp = new JButton("^");
-		ButtonUp.addActionListener(new ActionListener() {
+		JButton Button_Up = new JButton("^");
+		Button_Up.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aircraft.MoveTransport(Direction.Up);
-				panel.repaint();
+				Panel.repaint();
 			}
 		});
-		ButtonUp.setBounds(336, 402, 89, 23);
-		AttackAircraftFrame.getContentPane().add(ButtonUp);
+		Button_Up.setBounds(299, 401, 89, 23);
+		frame.getContentPane().add(Button_Up);
+		
+		JButton ButtonCreateAircraft = new JButton("\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u0430\u043C\u043E\u043B\u0435\u0442");
+		ButtonCreateAircraft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 aircraft = new Aircraft(rnd.nextInt(100) + 300, rnd.nextInt(1000) + 2000, Color.GRAY);
+					aircraft.SetPosition(rnd.nextInt(100) + 300, rnd.nextInt(100) + 100, 550, 500);
+					Panel = new MyPanel(aircraft);
+					Panel.setBorder(new BevelBorder(BevelBorder.LOWERED, 
+							null, null, null, null));
+					Panel.setBounds(30, 10, 630, 370);
+					frame.getContentPane().add(Panel);
+					Panel.repaint();
+			}
+		});
+		ButtonCreateAircraft.setBounds(479, 414, 163, 23);
+		frame.getContentPane().add(ButtonCreateAircraft);
 	}
 }
