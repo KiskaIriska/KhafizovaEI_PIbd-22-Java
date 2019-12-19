@@ -14,10 +14,8 @@ public class Aircraft extends FlyingObject {
 		this.MainColor = mainColor;
 		this.number = 4 + (int) (Math.random() * 3);
 		this.numberOfType = 1 + (int) (Math.random() * 3);
-
 	}
 
-	@Override
 	public void MoveTransport(Direction direction) {
 		float step = MaxSpeed * 100 / Weight;
 		switch (direction) {
@@ -70,13 +68,13 @@ public class Aircraft extends FlyingObject {
 		case 2: {
 			switch (number) {
 			case 4:
-				new AircraftsGuns_2().NumberGuns(Number.Four, g, _startPosX, _startPosY);
+				new AircraftsMegaGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
 				break;
 			case 5:
-				new AircraftsGuns_2().NumberGuns(Number.Five, g, _startPosX, _startPosY);
+				new AircraftsMegaGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
 				break;
 			case 6:
-				new AircraftsGuns_2().NumberGuns(Number.Six, g, _startPosX, _startPosY);
+				new AircraftsMegaGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
 				break;
 			}
 		}
@@ -85,13 +83,13 @@ public class Aircraft extends FlyingObject {
 		case 3: {
 			switch (number) {
 			case 4:
-				new AircraftsGuns_3().NumberGuns(Number.Four, g, _startPosX, _startPosY);
+				new AircraftsSuperGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
 				break;
 			case 5:
-				new AircraftsGuns_3().NumberGuns(Number.Five, g, _startPosX, _startPosY);
+				new AircraftsSuperGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
 				break;
 			case 6:
-				new AircraftsGuns_3().NumberGuns(Number.Six, g, _startPosX, _startPosY);
+				new AircraftsSuperGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
 				break;
 			}
 
@@ -120,4 +118,5 @@ public class Aircraft extends FlyingObject {
 		g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
 
 	}
+
 }

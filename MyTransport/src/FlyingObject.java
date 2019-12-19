@@ -7,6 +7,12 @@ public abstract class FlyingObject implements ITransport {
 	protected int _startPosY;
 	protected int _pictureWidth;
 	protected int _pictureHeight;
+	public Color MainColor() {
+		return MainColor;
+	}
+	public Color DopColor() {
+		return DopColor;
+	}
 	public int MaxSpeed;
 	{
 		Set get;
@@ -15,11 +21,11 @@ public abstract class FlyingObject implements ITransport {
 	{
 		Set get;
 	}
-	public static Color MainColor;
+	public  Color MainColor;
 	{
 		Set get;
 	}
-	public static Color DopColor;
+	public  Color DopColor;
 	{
 		Set get;
 	}
