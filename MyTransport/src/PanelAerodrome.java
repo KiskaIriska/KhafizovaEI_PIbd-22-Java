@@ -9,6 +9,7 @@ public class PanelAerodrome extends JPanel {
 	public PanelAerodrome(Aerodrome<ITransport> aerodrome) {
 		this.aerodrome = aerodrome;
 	}
+
 	public ITransport Delete(int index) {
 		return aerodrome.deleteAircraft(index);
 	}
@@ -16,6 +17,7 @@ public class PanelAerodrome extends JPanel {
 	public int AddSeveral(ITransport airplane, int count) {
 		return aerodrome.AddSeveral(airplane, count);
 	}
+
 	public void paint(Graphics g) {
 		super.paint(g);
 		aerodrome.draw(g);

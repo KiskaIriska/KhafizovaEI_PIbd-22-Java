@@ -47,15 +47,15 @@ public class Aerodrome<T extends ITransport> {
 		}
 		return null;
 	}
-	
+
 	public int AddSeveral(T aircarft, int count) {
 		for (int i = 0; i < count; i++) {
 			ITransport air = aircarft.Clone();
 			addAircraft((T) air);
 		}
 		return count;
-	}	
-	
+	}
+
 	private boolean checkFreePlace(int index) {
 		return (places[index] == null);
 	}
@@ -68,18 +68,16 @@ public class Aerodrome<T extends ITransport> {
 			}
 		}
 	}
-
+	
 	private void DrawMarking(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, (places.length / 5) * placeSizeWidth, 480);
 		for (int i = 0; i < places.length / 5; i++) {
-
 			for (int j = 0; j < 6; ++j) {
 
 				g.drawLine(i * placeSizeWidth, j * placeSizeHeight, i * placeSizeWidth + 110, j * placeSizeHeight);
 			}
 			g.drawLine(i * placeSizeWidth, 0, i * placeSizeWidth, 400);
 		}
-
 	}
 }
