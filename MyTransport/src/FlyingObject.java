@@ -37,6 +37,6 @@ public abstract class FlyingObject implements ITransport {
 	}
 
 	public abstract void DrawAircraft(Graphics g);
-
 	public abstract void MoveTransport(Direction direction);
+	public abstract ITransport Clone();
 }

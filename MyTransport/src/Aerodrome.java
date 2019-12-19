@@ -47,7 +47,15 @@ public class Aerodrome<T extends ITransport> {
 		}
 		return null;
 	}
-
+	
+	public int AddSeveral(T aircarft, int count) {
+		for (int i = 0; i < count; i++) {
+			ITransport air = aircarft.Clone();
+			addAircraft((T) air);
+		}
+		return count;
+	}	
+	
 	private boolean checkFreePlace(int index) {
 		return (places[index] == null);
 	}

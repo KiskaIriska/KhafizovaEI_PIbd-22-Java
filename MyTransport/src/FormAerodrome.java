@@ -68,7 +68,7 @@ public class FormAerodrome {
 				}
 			}
 		});
-		btnAircraft.setBounds(981, 11, 97, 25);
+		btnAircraft.setBounds(877, 11, 148, 25);
 		frame.getContentPane().add(btnAircraft);
 
 		JButton btnAttackAircraft = new JButton("AttackAircraft");
@@ -85,9 +85,9 @@ public class FormAerodrome {
 				}
 			}
 		});
-		btnAttackAircraft.setBounds(981, 49, 97, 25);
+		btnAttackAircraft.setBounds(877, 46, 148, 25);
 		frame.getContentPane().add(btnAttackAircraft);
-		JLabel label = new JLabel("\u0417\u0430\u0431\u0440\u0430\u0442\u044C \u043F\u043E\u0435\u0437\u0434:");
+		JLabel label = new JLabel("\u0417\u0430\u0431\u0440\u0430\u0442\u044C \u0441\u0430\u043C\u043E\u043B\u0435\u0442:");
 		label.setBounds(915, 199, 122, 14);
 		frame.getContentPane().add(label);
 
@@ -115,7 +115,7 @@ public class FormAerodrome {
 				}
 			}
 		});
-		btnTake.setBounds(992, 164, 97, 25);
+		btnTake.setBounds(1047, 225, 170, 25);
 		frame.getContentPane().add(btnTake);
 
 		panelTake = new TakePanel();
@@ -125,7 +125,60 @@ public class FormAerodrome {
 
 		panelAerodrome = new PanelAerodrome(aerodrome);
 		panelAerodrome.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelAerodrome.setBounds(10, 11, 833, 460);
+		panelAerodrome.setBounds(10, 12, 833, 460);
 		frame.getContentPane().add(panelAerodrome);
+		
+		JButton btnAddSeveralAircraft = new JButton("Add Several Aircraft");
+		btnAddSeveralAircraft.addActionListener(new ActionListener() {
+		
+				public void actionPerformed(ActionEvent e) {
+					int count = 4;
+					ITransport aircraft;
+					aircraft = new Aircraft((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
+							Color.green);
+					panelAerodrome.AddSeveral(aircraft, count);
+					panelAerodrome.repaint();
+				}
+			
+		});
+		btnAddSeveralAircraft.setBounds(1061, 12, 182, 35);
+		frame.getContentPane().add(btnAddSeveralAircraft);
+		
+		JButton btnDeleteSeveral = new JButton("Delete Several");
+		btnDeleteSeveral.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textFieldIndex.getText() != "") {
+					int index = Integer.parseInt(textFieldIndex.getText());				
+					for(int j = index; j < 20; j++) {
+					transport = aerodrome.deleteAircraft(j);
+					if (transport != null) {
+						panelTake.clear();
+						panelTake.drawAircraft(transport);
+						panelTake.transport.SetPosition(30, 100, panelPierWidth, panelPierHeight);
+						panelAerodrome.repaint();
+						panelTake.repaint();
+					}
+					}
+				}
+			}
+		});
+		btnDeleteSeveral.setBounds(1047, 192, 170, 29);
+		frame.getContentPane().add(btnDeleteSeveral);
+		
+		JButton btnAddSeveralAttackAircraft = new JButton("Add Several AttackAircraft");
+		btnAddSeveralAttackAircraft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = 4;
+				ITransport aircraft;
+				aircraft = new AttackAircrafts((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
+						Color.green, Color.BLUE, true, true, true);
+				panelAerodrome.AddSeveral(aircraft, count);
+				panelAerodrome.repaint();
+			}
+		});
+		btnAddSeveralAttackAircraft.setBounds(1061, 57, 182, 35);
+		frame.getContentPane().add(btnAddSeveralAttackAircraft);
+		
+		
 	}
 }

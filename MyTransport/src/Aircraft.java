@@ -118,5 +118,10 @@ public class Aircraft extends FlyingObject {
 		g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
 
 	}
+	
+	public ITransport Clone() {
+		ITransport air = new Aircraft(this.MaxSpeed, this.Weight, this.MainColor);
+		return air;
+	}
 
 }
