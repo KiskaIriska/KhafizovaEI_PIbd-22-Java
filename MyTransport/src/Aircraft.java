@@ -70,13 +70,13 @@ public class Aircraft extends FlyingObject {
 		case 2: {
 			switch (number) {
 			case 4:
-				new AircraftsGuns_2().NumberGuns(Number.Four, g, _startPosX, _startPosY);
+				new AircraftsMegaGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
 				break;
 			case 5:
-				new AircraftsGuns_2().NumberGuns(Number.Five, g, _startPosX, _startPosY);
+				new AircraftsMegaGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
 				break;
 			case 6:
-				new AircraftsGuns_2().NumberGuns(Number.Six, g, _startPosX, _startPosY);
+				new AircraftsMegaGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
 				break;
 			}
 		}
@@ -85,13 +85,13 @@ public class Aircraft extends FlyingObject {
 		case 3: {
 			switch (number) {
 			case 4:
-				new AircraftsGuns_3().NumberGuns(Number.Four, g, _startPosX, _startPosY);
+				new AircraftsSuperGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
 				break;
 			case 5:
-				new AircraftsGuns_3().NumberGuns(Number.Five, g, _startPosX, _startPosY);
+				new AircraftsSuperGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
 				break;
 			case 6:
-				new AircraftsGuns_3().NumberGuns(Number.Six, g, _startPosX, _startPosY);
+				new AircraftsSuperGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
 				break;
 			}
 

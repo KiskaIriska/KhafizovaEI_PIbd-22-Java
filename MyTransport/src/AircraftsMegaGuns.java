@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class AircraftsGuns_2 implements IGuns {
+public class AircraftsMegaGuns implements IGuns {
 
 	public  void NumberGuns(Number number, Graphics g, int x, int y) 
 	{
