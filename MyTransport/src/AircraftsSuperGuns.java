@@ -51,4 +51,11 @@ public class AircraftsSuperGuns implements IGuns {
 		g.fillRect(x + 80, y + 5, 5, 15);
 		g.fillRect(x + 80, y + 40, 5, 15);	
 	}
+	@Override 
+	public IGuns Clone()
+	{
+		IGuns gun = new AircraftsSuperGuns();
+		return gun;
+	}
+	
 }

@@ -45,5 +45,11 @@ public class AircraftsGuns implements IGuns {
 		DrawGuns(g, x + 55, y + 10);
 		DrawGuns(g, x + 55, y + 45);
 	}
+	@Override 
+	public IGuns Clone()
+	{
+		IGuns gun = new AircraftsGuns();
+		return gun;
+	}
 	
 }

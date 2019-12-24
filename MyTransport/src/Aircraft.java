@@ -50,53 +50,6 @@ public class Aircraft extends FlyingObject {
 
 	@Override
 	public void DrawAircraft(Graphics g) {
-		/*switch (numberOfType) {
-		case 1: {
-			switch (number) {
-			case 4:
-				new AircraftsGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
-				break;
-			case 5:
-				new AircraftsGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
-				break;
-			case 6:
-				new AircraftsGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
-				break;
-			}
-		}
-			break;
-		case 2: {
-			switch (number) {
-			case 4:
-				new AircraftsMegaGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
-				break;
-			case 5:
-				new AircraftsMegaGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
-				break;
-			case 6:
-				new AircraftsMegaGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
-				break;
-			}
-		}
-
-			break;
-		case 3: {
-			switch (number) {
-			case 4:
-				new AircraftsSuperGuns().NumberGuns(Number.Four, g, _startPosX, _startPosY);
-				break;
-			case 5:
-				new AircraftsSuperGuns().NumberGuns(Number.Five, g, _startPosX, _startPosY);
-				break;
-			case 6:
-				new AircraftsSuperGuns().NumberGuns(Number.Six, g, _startPosX, _startPosY);
-				break;
-			}
-
-		}
-			break;
-		}
-*/
 		g.setColor(mainColor);
 		g.fillRect(_startPosX + 5, _startPosY + 25, 85, 10);
 		g.fillOval(_startPosX, _startPosY + 25, 10, 10);
@@ -116,8 +69,7 @@ public class Aircraft extends FlyingObject {
 
 		g.setColor(Color.cyan);
 		g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
-
-	}
+	}	
 	
 	public ITransport Clone() {
 		ITransport air = new Aircraft(this.maxSpeed, this.weight, this.mainColor);

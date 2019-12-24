@@ -12,5 +12,7 @@ public interface IGuns {
 	public int getPositionX();
 
 	public int getPositionY();
+	
+	IGuns Clone();
 
 }

@@ -122,26 +122,14 @@ public class FormAerodrome {
 					transport = aerodrome.deleteAircraft(Integer.parseInt(textFieldIndex.getText()));
 					if (transport != null) {
 						panelTake.clear();
-						//panelTake.drawAircraft(transport);
-						//panelTake.transport.SetPosition(30, 100, panelPierWidth, panelPierHeight);
-						//panelAerodrome.repaint();
-						///panelTake.repaint();
 						guns = aerodrome.deleteGuns(Integer.parseInt(textFieldIndex.getText()));
-
 						if (guns != null) {
-
 							panelTake.drawAircraft(transport, guns);
-
 						} else {
-
 							panelTake.drawAircraft(transport);
-
 						}
-
 						panelTake.transport.SetPosition(100, 100, panelPierWidth, panelPierHeight);
-
 						panelAerodrome.repaint();
-
 						panelTake.repaint();
 					}
 				}
@@ -204,7 +192,20 @@ public class FormAerodrome {
 				ITransport aircraft;
 				aircraft = new AttackAircrafts((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
 						Color.green, Color.BLUE, true, true, true);
-				//panelAerodrome.AddSeveral(aircraft, count);
+				Random rnd = new Random();
+				switch(rnd.nextInt(3)) {
+				case 0:
+					guns = new AircraftsGuns();
+					break;
+				case 1:
+					guns = new AircraftsSuperGuns();
+					break;
+				case 2:
+					guns = new AircraftsMegaGuns();
+				break;
+					
+				}
+				panelAerodrome.AddSeveralAircraft(aircraft,guns, count);
 				panelAerodrome.repaint();
 			}
 		});

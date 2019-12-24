@@ -127,7 +127,12 @@ public class Aerodrome<T extends ITransport, G extends IGuns> {
 		}
 	}
 
-	public int AddSeveralAircraft(ITransport airplane, IGuns guns, int count) {
-		return 0;
+	public int AddSeveralAircraft(ITransport aircraft, IGuns guns, int count) {
+		for (int i = 0; i < count; i++) {
+			ITransport air = aircraft.Clone();
+			IGuns gun = guns.Clone();
+			addAircraft((T) air, (G) gun);
+		}
+		return count;
 	}
 }
