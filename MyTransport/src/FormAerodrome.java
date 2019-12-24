@@ -16,8 +16,9 @@ public class FormAerodrome {
 	private JFrame frame;
 	private final int panelPierWidth = 870;
 	private final int panelPierHeight = 460;
-	private Aerodrome<ITransport> aerodrome;
+	private Aerodrome<ITransport, IGuns> aerodrome;
 	private ITransport transport;
+	private IGuns guns;
 	private TakePanel panelTake;
 	private PanelAerodrome panelAerodrome;
 	private JTextField textFieldIndex;
@@ -55,7 +56,7 @@ public class FormAerodrome {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		aerodrome = new Aerodrome<ITransport>(20, panelPierWidth, panelPierWidth);
+		aerodrome = new Aerodrome<ITransport,IGuns>(20, panelPierWidth, panelPierWidth);
 
 		JButton btnAircraft = new JButton("Aircraft");
 		btnAircraft.addActionListener(new ActionListener() {
@@ -79,8 +80,21 @@ public class FormAerodrome {
 					Color dopColor = JColorChooser.showDialog(frame, null, Color.blue);
 					if (dopColor != null) {
 						transport = new AttackAircrafts(100, 1000, mainColor, dopColor, true, true, true);
+						Random rnd = new Random();
+						switch(rnd.nextInt(3)) {
+						case 0:
+							guns = new AircraftsGuns();
+							break;
+						case 1:
+							guns = new AircraftsSuperGuns();
+							break;
+						case 2:
+							guns = new AircraftsMegaGuns();
+						break;
+							
+						}
 					}
-					int place = aerodrome.addAircraft(transport);
+					int place = aerodrome.addAircraft(transport, guns);
 					panelAerodrome.repaint();
 				}
 			}
@@ -108,9 +122,26 @@ public class FormAerodrome {
 					transport = aerodrome.deleteAircraft(Integer.parseInt(textFieldIndex.getText()));
 					if (transport != null) {
 						panelTake.clear();
-						panelTake.drawAircraft(transport);
-						panelTake.transport.SetPosition(30, 100, panelPierWidth, panelPierHeight);
+						//panelTake.drawAircraft(transport);
+						//panelTake.transport.SetPosition(30, 100, panelPierWidth, panelPierHeight);
+						//panelAerodrome.repaint();
+						///panelTake.repaint();
+						guns = aerodrome.deleteGuns(Integer.parseInt(textFieldIndex.getText()));
+
+						if (guns != null) {
+
+							panelTake.drawAircraft(transport, guns);
+
+						} else {
+
+							panelTake.drawAircraft(transport);
+
+						}
+
+						panelTake.transport.SetPosition(100, 100, panelPierWidth, panelPierHeight);
+
 						panelAerodrome.repaint();
+
 						panelTake.repaint();
 					}
 				}
@@ -173,7 +204,7 @@ public class FormAerodrome {
 				ITransport aircraft;
 				aircraft = new AttackAircrafts((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
 						Color.green, Color.BLUE, true, true, true);
-				panelAerodrome.AddSeveral(aircraft, count);
+				//panelAerodrome.AddSeveral(aircraft, count);
 				panelAerodrome.repaint();
 			}
 		});

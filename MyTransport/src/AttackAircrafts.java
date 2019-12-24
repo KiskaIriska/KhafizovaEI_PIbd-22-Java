@@ -62,7 +62,7 @@ public class AttackAircrafts extends Aircraft{
     
     @Override
 	public ITransport Clone() {
-		ITransport air = new AttackAircrafts(this.MaxSpeed, this.Weight, this.MainColor, this.DopColor, this.Turbines,
+		ITransport air = new AttackAircrafts(this.maxSpeed, this.weight, this.mainColor, this.DopColor, this.Turbines,
 				this.Propeller, this.Flag);
 		return air;
 	}
