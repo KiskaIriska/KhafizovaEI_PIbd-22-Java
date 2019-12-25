@@ -10,7 +10,9 @@ public class PanelAerodrome extends JPanel {
 		this.aerodrome = aerodrome;
 	}
 
-
+	public void setAerodrome(Aerodrome<ITransport, IGuns> aerodrome) {
+		this.aerodrome = aerodrome;
+	}
 	public int AddSeveral(ITransport airplane, int count) {
 		return aerodrome.AddSeveral(airplane, count);
 	}

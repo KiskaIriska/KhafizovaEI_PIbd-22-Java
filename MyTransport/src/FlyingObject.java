@@ -5,21 +5,21 @@ import java.util.Set;
 public abstract class FlyingObject implements ITransport {
 	protected int _startPosX;
 
-    protected int _startPosY;
+	protected int _startPosY;
 
-    protected int _pictureWidth;
+	protected int _pictureWidth;
 
-    protected int _pictureHeight;
+	protected int _pictureHeight;
 
-    protected int maxSpeed;
+	protected int maxSpeed;
 
-    protected int weight;
+	protected int weight;
 
-    protected Color mainColor;
+	protected Color mainColor;
 
-    protected Color dopColor;
+	protected Color dopColor;
 
-    public int getStartPosX() {
+	public int getStartPosX() {
 		return _startPosX;
 	}
 
@@ -58,7 +58,7 @@ public abstract class FlyingObject implements ITransport {
 	protected void setDopColor(Color dopColor) {
 		this.dopColor = dopColor;
 	}
-	
+
 	public void SetPosition(int x, int y, int width, int height) {
 		this._startPosX = x;
 		this._startPosY = y;

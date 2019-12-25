@@ -75,7 +75,4 @@ public class Aircraft extends FlyingObject {
 		ITransport air = new Aircraft(this.maxSpeed, this.weight, this.mainColor);
 		return air;
 	}
-
-	
-
 }
