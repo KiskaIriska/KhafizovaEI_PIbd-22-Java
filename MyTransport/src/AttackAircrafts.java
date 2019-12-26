@@ -16,14 +16,17 @@ public class AttackAircrafts extends Aircraft{
     public boolean Flag; { 
     	Set get; 
     	}
-
-    public AttackAircrafts(int maxSpeed, float weight, Color mainColor, Color dopColor, boolean turbines,
+    private Number num;
+    private IGuns guns;
+    public AttackAircrafts(int maxSpeed, float weight,Number num, Color mainColor, Color dopColor, boolean turbines,
         boolean propeller, boolean flag) {
         super(maxSpeed, weight, mainColor);
         this.DopColor = dopColor;
         this.Turbines = turbines;
         this.Propeller = propeller;
         this.Flag = flag;
+        this.setNumber(num);
+        guns = new AircraftsGuns();
     }
     public int getX() {
 		return _startPosX;		
@@ -31,12 +34,18 @@ public class AttackAircrafts extends Aircraft{
 	public int getY() {
 		return _startPosY;		
 	}
-	
+	public Number getNumber() {
+		return num;
+	}
+	private void setNumber(Number num) {
+		this.num = num;
+	}
     @Override
     public void DrawAircraft(Graphics g)
     {	
         super.DrawAircraft(g);
-        if (Propeller)
+        guns.NumberGuns(num, g, _startPosX, _startPosY);
+        if (Propeller) 
         {
             g.setColor(DopColor); 
             g.fillOval( _startPosX + 93, _startPosY + 13, 5, 18);
@@ -59,11 +68,22 @@ public class AttackAircrafts extends Aircraft{
             g.fillRect( _startPosX + 65, _startPosY + 45, 5, 5);
         }
     }	
-    
-    @Override
-	public ITransport Clone() {
-		ITransport air = new AttackAircrafts(this.maxSpeed, this.weight, this.mainColor, this.DopColor, this.Turbines,
-				this.Propeller, this.Flag);
-		return air;
-	}
+    public void drawBasement(Graphics g) {
+    	int[] xPoints = {_startPosX - 45, _startPosX + 45, 
+        		_startPosX + 30, _startPosX - 40};
+        int[] yPoints = {_startPosY + 10, _startPosY + 10, 
+        		_startPosY + 25, _startPosY + 25};
+        int nPoints = 4;
+        g.setColor(mainColor);
+        g.fillPolygon(xPoints, yPoints, nPoints);
+        g.setColor(Color.black);
+        g.drawPolygon(xPoints, yPoints, nPoints);
+        for (int i = _startPosX-35; i <= _startPosX + 25; i += 15)
+        {
+        	g.setColor(dopColor);
+            g.fillOval(i, _startPosY + 17, 3, 3);
+            g.setColor(Color.black);
+            g.drawOval(i, _startPosY + 17, 3, 3);
+        }
+    }
 }

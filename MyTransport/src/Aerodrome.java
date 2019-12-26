@@ -92,13 +92,6 @@ public class Aerodrome<T extends ITransport, G extends IGuns> {
 		return null;
 	}
 
-	public int AddSeveral(T aircarft, int count) {
-		for (int i = 0; i < count; i++) {
-			ITransport air = aircarft.Clone();
-			addAircraft((T) air);
-		}
-		return count;
-	}
 
 	private boolean checkFreePlace(int index) {
 		return !(places.containsKey(index));
@@ -127,14 +120,5 @@ public class Aerodrome<T extends ITransport, G extends IGuns> {
 			}
 			g.drawLine(i * placeSizeWidth, 0, i * placeSizeWidth, 400);
 		}
-	}
-
-	public int AddSeveralAircraft(ITransport aircraft, IGuns guns, int count) {
-		for (int i = 0; i < count; i++) {
-			ITransport air = aircraft.Clone();
-			IGuns gun = guns.Clone();
-			addAircraft((T) air, (G) gun);
-		}
-		return count;
 	}
 }

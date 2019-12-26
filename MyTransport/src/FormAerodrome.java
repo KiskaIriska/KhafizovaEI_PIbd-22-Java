@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -92,60 +93,18 @@ public class FormAerodrome {
 
 		frame.getContentPane().add(list);
 
-		JButton btnAircraft = new JButton("Aircraft");
-		btnAircraft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color newColor = JColorChooser.showDialog(frame, null, Color.blue);
-				if (newColor != null) {
-					transport = new Aircraft(100, 1000, newColor);
-					int place = aerodrome.getAerodrome(list.getSelectedIndex()).addAircraft(transport);
-					panelAerodrome.repaint();
-				}
-			}
-		});
-		btnAircraft.setBounds(1124, 103, 148, 25);
-		frame.getContentPane().add(btnAircraft);
-
-		JButton btnAttackAircraft = new JButton("AttackAircraft");
-		btnAttackAircraft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color mainColor = JColorChooser.showDialog(frame, null, Color.blue);
-				if (mainColor != null) {
-					Color dopColor = JColorChooser.showDialog(frame, null, Color.blue);
-					if (dopColor != null) {
-						transport = new AttackAircrafts(100, 1000, mainColor, dopColor, true, true, true);
-						Random rnd = new Random();
-						switch (rnd.nextInt(3)) {
-						case 0:
-							guns = new AircraftsGuns();
-							break;
-						case 1:
-							guns = new AircraftsSuperGuns();
-							break;
-						case 2:
-							guns = new AircraftsMegaGuns();
-							break;
-
-						}
-					}
-					int place = aerodrome.getAerodrome(list.getSelectedIndex()).addAircraft(transport, guns);
-					panelAerodrome.repaint();
-				}
-			}
-		});
-		btnAttackAircraft.setBounds(1124, 139, 148, 25);
-		frame.getContentPane().add(btnAttackAircraft);
+		
 		JLabel label = new JLabel(
 				"\u0417\u0430\u0431\u0440\u0430\u0442\u044C \u0441\u0430\u043C\u043E\u043B\u0435\u0442:");
-		label.setBounds(915, 199, 122, 14);
+		label.setBounds(1076, 27, 122, 14);
 		frame.getContentPane().add(label);
 
 		JLabel label_1 = new JLabel("\u041C\u0435\u0441\u0442\u043E:");
-		label_1.setBounds(912, 224, 48, 14);
+		label_1.setBounds(1076, 61, 48, 14);
 		frame.getContentPane().add(label_1);
 
 		textFieldIndex = new JTextField();
-		textFieldIndex.setBounds(972, 226, 51, 22);
+		textFieldIndex.setBounds(1134, 57, 51, 22);
 		frame.getContentPane().add(textFieldIndex);
 		textFieldIndex.setColumns(10);
 
@@ -157,6 +116,7 @@ public class FormAerodrome {
 							Integer.parseInt(textFieldIndex.getText()));
 					if (transport != null) {
 						panelTake.clear();
+						storageTransport.put(storageIndex, transport);
 						guns = aerodrome.getGuns(list.getSelectedIndex(), Integer.parseInt(textFieldIndex.getText()));
 						if (guns != null) {
 							panelTake.drawAircraft(transport, guns);
@@ -164,6 +124,7 @@ public class FormAerodrome {
 						} else {
 							panelTake.drawAircraft(transport);
 						}
+						storageIndex++;
 						panelTake.transport.SetPosition(100, 100, panelPierWidth, panelPierHeight);
 						panelAerodrome.repaint();
 						panelTake.repaint();
@@ -171,9 +132,22 @@ public class FormAerodrome {
 				}
 			}
 		});
-		btnTake.setBounds(1047, 225, 170, 25);
+		btnTake.setBounds(1107, 86, 170, 25);
 		frame.getContentPane().add(btnTake);
 
+		JButton btnShowCollection = new JButton("\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F");
+		btnShowCollection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CollectionInfo info = new CollectionInfo();
+				info.showCollection(storageTransport, storageGuns);
+				info.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				info.setVisible(true);
+			}
+		});
+		btnShowCollection.setBounds(929, 406, 119, 23);
+		frame.getContentPane().add(btnShowCollection);
+
+		
 		panelTake = new TakePanel();
 		panelTake.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelTake.setBounds(891, 286, 410, 186);
@@ -183,48 +157,18 @@ public class FormAerodrome {
 		panelAerodrome.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelAerodrome.setBounds(10, 12, 833, 460);
 		frame.getContentPane().add(panelAerodrome);
-
-		JButton btnAddSeveralAircraft = new JButton("Add Several Aircraft");
-		btnAddSeveralAircraft.addActionListener(new ActionListener() {
-
+		
+		JButton btnAddAircraft = new JButton("\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u043A\u043E\u0440\u0430\u0431\u043B\u044C");
+		btnAddAircraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int count = 4;
-				ITransport aircraft;
-				aircraft = new Aircraft((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
-						Color.green);
-				panelAerodrome.AddSeveral(aircraft, count);
-				panelAerodrome.repaint();
-			}
-
-		});
-		btnAddSeveralAircraft.setBounds(1119, 11, 182, 35);
-		frame.getContentPane().add(btnAddSeveralAircraft);
-
-		JButton btnAddSeveralAttackAircraft = new JButton("Add Several AttackAircraft");
-		btnAddSeveralAttackAircraft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int count = 4;
-				ITransport aircraft;
-				aircraft = new AttackAircrafts((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
-						Color.green, Color.BLUE, true, true, true);
-				Random rnd = new Random();
-				switch (rnd.nextInt(3)) {
-				case 0:
-					guns = new AircraftsGuns();
-					break;
-				case 1:
-					guns = new AircraftsSuperGuns();
-					break;
-				case 2:
-					guns = new AircraftsMegaGuns();
-					break;
-
+				AircraftConfig configFrame = new AircraftConfig();
+				configFrame.frame.setVisible(true);
+				configFrame.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				configFrame.initializeConfig(panelAerodrome, aerodrome, list);
 				}
-				panelAerodrome.AddSeveralAircraft(aircraft, guns, count);
-				panelAerodrome.repaint();
-			}
 		});
-		btnAddSeveralAttackAircraft.setBounds(1119, 57, 182, 35);
-		frame.getContentPane().add(btnAddSeveralAttackAircraft);
+		btnAddAircraft.setBounds(917, 230, 147, 44);
+		frame.getContentPane().add(btnAddAircraft);
+		
 	}
 }

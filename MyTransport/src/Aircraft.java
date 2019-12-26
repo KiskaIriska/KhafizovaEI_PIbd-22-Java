@@ -71,8 +71,26 @@ public class Aircraft extends FlyingObject {
 		g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
 	}	
 	
-	public ITransport Clone() {
-		ITransport air = new Aircraft(this.maxSpeed, this.weight, this.mainColor);
-		return air;
-	}
+	@Override
+	 public void drawBasement(Graphics g) {
+		 g.setColor(mainColor);
+			g.fillRect(_startPosX + 5, _startPosY + 25, 85, 10);
+			g.fillOval(_startPosX, _startPosY + 25, 10, 10);
+			g.fillOval(_startPosX + 85, _startPosY + 25, 10, 10);
+
+			g.fillRect(_startPosX + 10, _startPosY + 15, 10, 30);
+			g.fillOval(_startPosX + 10, _startPosY + 10, 10, 10);
+			g.fillOval(_startPosX + 10, _startPosY + 40, 10, 10);
+
+			g.fillRect(_startPosX + 60, _startPosY + 5, 15, 50);
+			g.fillOval(_startPosX + 60, _startPosY, 15, 10);
+			g.fillOval(_startPosX + 60, _startPosY + 50, 15, 10);
+
+			g.fillRect(_startPosX + 50, _startPosY + 20, 25, 20);
+			g.fillOval(_startPosX + 65, _startPosY + 20, 20, 20);
+			g.fillOval(_startPosX + 40, _startPosY + 20, 20, 20);
+
+			g.setColor(Color.cyan);
+			g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
+	    }
 }

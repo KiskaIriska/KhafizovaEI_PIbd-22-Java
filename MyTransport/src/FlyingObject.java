@@ -47,7 +47,7 @@ public abstract class FlyingObject implements ITransport {
 		return mainColor;
 	}
 
-	protected void setMainColor(Color mainColor) {
+	public void setMainColor(Color mainColor) {
 		this.mainColor = mainColor;
 	}
 
@@ -55,7 +55,7 @@ public abstract class FlyingObject implements ITransport {
 		return dopColor;
 	}
 
-	protected void setDopColor(Color dopColor) {
+	public void setDopColor(Color dopColor) {
 		this.dopColor = dopColor;
 	}
 
@@ -70,5 +70,4 @@ public abstract class FlyingObject implements ITransport {
 
 	public abstract void MoveTransport(Direction direction);
 
-	public abstract ITransport Clone();
 }
