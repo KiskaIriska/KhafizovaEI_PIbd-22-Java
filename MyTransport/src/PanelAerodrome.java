@@ -19,3 +19,4 @@ public class PanelAerodrome extends JPanel {
 		aerodrome.draw(g);
 	}
 }
+
