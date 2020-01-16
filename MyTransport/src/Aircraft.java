@@ -9,17 +9,15 @@ public class Aircraft extends FlyingObject {
 	private int number;
 
 	public Aircraft(int maxSpeed, float weight, Color mainColor) {
-		this.MaxSpeed = maxSpeed;
-		this.Weight = weight;
-		this.MainColor = mainColor;
+		this.maxSpeed = maxSpeed;
+		this.weight = (int) weight;
+		this.mainColor = mainColor;
 		this.number = 4 + (int) (Math.random() * 3);
 		this.numberOfType = 1 + (int) (Math.random() * 3);
-
 	}
 
-	@Override
 	public void MoveTransport(Direction direction) {
-		float step = MaxSpeed * 100 / Weight;
+		float step = maxSpeed * 100 / weight;
 		switch (direction) {
 
 		case Right:
@@ -52,6 +50,9 @@ public class Aircraft extends FlyingObject {
 
 	@Override
 	public void DrawAircraft(Graphics g) {
+
+		g.setColor(mainColor);
+
 		switch (numberOfType) {
 		case 1: {
 			switch (number) {
@@ -100,6 +101,7 @@ public class Aircraft extends FlyingObject {
 		}
 
 		g.setColor(MainColor);
+
 		g.fillRect(_startPosX + 5, _startPosY + 25, 85, 10);
 		g.fillOval(_startPosX, _startPosY + 25, 10, 10);
 		g.fillOval(_startPosX + 85, _startPosY + 25, 10, 10);
@@ -118,6 +120,13 @@ public class Aircraft extends FlyingObject {
 
 		g.setColor(Color.cyan);
 		g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
-
+	}	
+	
+	public ITransport Clone() {
+		ITransport air = new Aircraft(this.maxSpeed, this.weight, this.mainColor);
+		return air;
 	}
+
+	
+
 }

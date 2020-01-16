@@ -59,4 +59,11 @@ public class AttackAircrafts extends Aircraft{
             g.fillRect( _startPosX + 65, _startPosY + 45, 5, 5);
         }
     }	
+    
+    @Override
+	public ITransport Clone() {
+		ITransport air = new AttackAircrafts(this.maxSpeed, this.weight, this.mainColor, this.DopColor, this.Turbines,
+				this.Propeller, this.Flag);
+		return air;
+	}
 }
