@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class AircraftsSuperGuns implements IGuns {
+
 	private int positionX;
 
 	private int positionY;
@@ -20,6 +21,8 @@ public class AircraftsSuperGuns implements IGuns {
 		this.positionY = positionY;
 	}
 	@Override
+
+
 	public void NumberGuns(Number number, Graphics g, int x, int y) {
 		DrawGuns(g, x + 55, y + 5);
 		DrawGuns(g, x + 55, y + 15);
@@ -33,12 +36,15 @@ public class AircraftsSuperGuns implements IGuns {
 		g.fillRect(x + 80, y + 5, 5, 15);
 		g.fillRect(x + 80, y + 40, 5, 15);
 	}
+
 	@Override
+
+
 	public void DrawGuns(Graphics g, int x, int y) {
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y + 1, 35, 3);
 
-	}
+
 	@Override
 	public void DrawAeroGuns(Graphics g, int x, int y) {
 		DrawGuns(g, x + 55, y + 5);
@@ -58,4 +64,5 @@ public class AircraftsSuperGuns implements IGuns {
 		return gun;
 	}
 	
+
 }
