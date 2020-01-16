@@ -52,7 +52,6 @@ public class AircraftConfig {
 	private JList<String> currentList;
 
 	private JButton btnAdd;
-
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -207,9 +206,7 @@ public class AircraftConfig {
 		JLabel label_2 = new JLabel("\u0424\u043E\u0440\u043C\u0430 \u043E\u0440\u0443\u0434\u0438\u0439");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setBounds(23, 141, 85, 14);
-		frame.getContentPane().add(label_2);
-
-		
+		frame.getContentPane().add(label_2);	
 
 		textFieldRectangle = new JTextField();
 		textFieldRectangle.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -264,9 +261,7 @@ public class AircraftConfig {
 		fl_panelShip.setAlignOnBaseline(true);
 		panelAircraft.setLayout(fl_panelShip);
 		labelDopColor.setTransferHandler(transHandDop);
-		frame.getContentPane().add(labelDopColor);
-
-		
+		frame.getContentPane().add(labelDopColor);	
 
 		btnAdd = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
 		btnAdd.addActionListener(new ActionListener() {
