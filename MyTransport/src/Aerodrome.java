@@ -40,6 +40,10 @@ public class Aerodrome<T extends ITransport, G extends IGuns> {
 		setPictureWidth(pictureWidth);
 		setPictureHeight(pictureHeight);
 		this.maxCount = sizes;
+		for (int i = 0; i < places.length; i++) {
+			places[i] = null;
+			placesGuns[i] = null;		
+		}
 	}
 
 	public int addAircraft(T aircraft) {
@@ -53,7 +57,7 @@ public class Aerodrome<T extends ITransport, G extends IGuns> {
 		}
 		return -1;
 	}
-
+  
 	public int addAircraft(T aircraft, G guns) {
 		for (int i = 0; i < maxCount; i++) {
 			if (this.checkFreePlace(i)) {
@@ -122,13 +126,11 @@ public class Aerodrome<T extends ITransport, G extends IGuns> {
 		g.drawRect(0, 0, (maxCount / 5) * placeSizeWidth, 480);
 		for (int i = 0; i < maxCount / 5; i++) {
 			for (int j = 0; j < 6; ++j) {
-
 				g.drawLine(i * placeSizeWidth, j * placeSizeHeight, i * placeSizeWidth + 110, j * placeSizeHeight);
 			}
 			g.drawLine(i * placeSizeWidth, 0, i * placeSizeWidth, 400);
 		}
 	}
-
 	public int AddSeveralAircraft(ITransport aircraft, IGuns guns, int count) {
 		for (int i = 0; i < count; i++) {
 			ITransport air = aircraft.Clone();
