@@ -5,10 +5,15 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 
@@ -16,13 +21,21 @@ public class FormAerodrome {
 	private JFrame frame;
 	private final int panelPierWidth = 870;
 	private final int panelPierHeight = 460;
-	private Aerodrome<ITransport, IGuns> aerodrome;
+	private final int countLevels = 5;
+
+	private MultiLevelAerodrome aerodrome;
+
+	private Hashtable<Integer, ITransport> storageTransport;
+
+	private Hashtable<Integer, IGuns> storageGuns;
+
 	private ITransport transport;
 	private IGuns guns;
 	private TakePanel panelTake;
 	private PanelAerodrome panelAerodrome;
 	private JTextField textFieldIndex;
-	static int choiceOperator = 0;
+	private int storageIndex = 0;
+	private JList<String> list;
 
 	/**
 	 * Launch the application.
@@ -55,8 +68,29 @@ public class FormAerodrome {
 		frame.setBounds(100, 100, 1331, 620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		aerodrome = new MultiLevelAerodrome(countLevels, panelPierWidth, panelPierHeight);
+		storageTransport = new Hashtable<>();
+		storageGuns = new Hashtable<>();
 
-		aerodrome = new Aerodrome<ITransport,IGuns>(20, panelPierWidth, panelPierWidth);
+		String[] levels = new String[countLevels];
+		for (int i = 0; i < countLevels; i++) {
+			levels[i] = "Уровень" + (i + 1);
+		}
+		list = new JList(levels);
+		list.setSelectedIndex(0);
+		list.setBounds(890, 11, 161, 164);
+		list.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				int index = list.getSelectedIndex();
+				panelAerodrome.setAerodrome(aerodrome.getAerodrome(index));
+				panelAerodrome.repaint();
+
+			}
+
+		});
+
+		frame.getContentPane().add(list);
 
 		JButton btnAircraft = new JButton("Aircraft");
 		btnAircraft.addActionListener(new ActionListener() {
@@ -64,12 +98,12 @@ public class FormAerodrome {
 				Color newColor = JColorChooser.showDialog(frame, null, Color.blue);
 				if (newColor != null) {
 					transport = new Aircraft(100, 1000, newColor);
-					int place = aerodrome.addAircraft(transport);
+					int place = aerodrome.getAerodrome(list.getSelectedIndex()).addAircraft(transport);
 					panelAerodrome.repaint();
 				}
 			}
 		});
-		btnAircraft.setBounds(877, 11, 148, 25);
+		btnAircraft.setBounds(1124, 103, 148, 25);
 		frame.getContentPane().add(btnAircraft);
 
 		JButton btnAttackAircraft = new JButton("AttackAircraft");
@@ -81,7 +115,7 @@ public class FormAerodrome {
 					if (dopColor != null) {
 						transport = new AttackAircrafts(100, 1000, mainColor, dopColor, true, true, true);
 						Random rnd = new Random();
-						switch(rnd.nextInt(3)) {
+						switch (rnd.nextInt(3)) {
 						case 0:
 							guns = new AircraftsGuns();
 							break;
@@ -90,16 +124,16 @@ public class FormAerodrome {
 							break;
 						case 2:
 							guns = new AircraftsMegaGuns();
-						break;
-							
+							break;
+
 						}
 					}
-					int place = aerodrome.addAircraft(transport, guns);
+					int place = aerodrome.getAerodrome(list.getSelectedIndex()).addAircraft(transport, guns);
 					panelAerodrome.repaint();
 				}
 			}
 		});
-		btnAttackAircraft.setBounds(877, 46, 148, 25);
+		btnAttackAircraft.setBounds(1124, 139, 148, 25);
 		frame.getContentPane().add(btnAttackAircraft);
 		JLabel label = new JLabel(
 				"\u0417\u0430\u0431\u0440\u0430\u0442\u044C \u0441\u0430\u043C\u043E\u043B\u0435\u0442:");
@@ -119,12 +153,14 @@ public class FormAerodrome {
 		btnTake.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldIndex.getText() != "") {
-					transport = aerodrome.deleteAircraft(Integer.parseInt(textFieldIndex.getText()));
+					transport = aerodrome.getAircraft(list.getSelectedIndex(),
+							Integer.parseInt(textFieldIndex.getText()));
 					if (transport != null) {
 						panelTake.clear();
-						guns = aerodrome.deleteGuns(Integer.parseInt(textFieldIndex.getText()));
+						guns = aerodrome.getGuns(list.getSelectedIndex(), Integer.parseInt(textFieldIndex.getText()));
 						if (guns != null) {
 							panelTake.drawAircraft(transport, guns);
+							storageGuns.put(storageIndex, guns);
 						} else {
 							panelTake.drawAircraft(transport);
 						}
@@ -143,7 +179,7 @@ public class FormAerodrome {
 		panelTake.setBounds(891, 286, 410, 186);
 		frame.getContentPane().add(panelTake);
 
-		panelAerodrome = new PanelAerodrome(aerodrome);
+		panelAerodrome = new PanelAerodrome(aerodrome.getAerodrome(0));
 		panelAerodrome.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelAerodrome.setBounds(10, 12, 833, 460);
 		frame.getContentPane().add(panelAerodrome);
@@ -161,29 +197,8 @@ public class FormAerodrome {
 			}
 
 		});
-		btnAddSeveralAircraft.setBounds(1061, 12, 182, 35);
+		btnAddSeveralAircraft.setBounds(1119, 11, 182, 35);
 		frame.getContentPane().add(btnAddSeveralAircraft);
-
-		JButton btnDeleteSeveral = new JButton("Delete Several");
-		btnDeleteSeveral.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (textFieldIndex.getText() != "") {
-					int index = Integer.parseInt(textFieldIndex.getText());
-					for (int j = index; j < 20; j++) {
-						transport = aerodrome.deleteAircraft(j);
-						if (transport != null) {
-							panelTake.clear();
-							panelTake.drawAircraft(transport);
-							panelTake.transport.SetPosition(30, 100, panelPierWidth, panelPierHeight);
-							panelAerodrome.repaint();
-							panelTake.repaint();
-						}
-					}
-				}
-			}
-		});
-		btnDeleteSeveral.setBounds(1047, 192, 170, 29);
-		frame.getContentPane().add(btnDeleteSeveral);
 
 		JButton btnAddSeveralAttackAircraft = new JButton("Add Several AttackAircraft");
 		btnAddSeveralAttackAircraft.addActionListener(new ActionListener() {
@@ -193,7 +208,7 @@ public class FormAerodrome {
 				aircraft = new AttackAircrafts((int) (Math.random() * 200) + 100, (int) (Math.random() * 1000) + 1000,
 						Color.green, Color.BLUE, true, true, true);
 				Random rnd = new Random();
-				switch(rnd.nextInt(3)) {
+				switch (rnd.nextInt(3)) {
 				case 0:
 					guns = new AircraftsGuns();
 					break;
@@ -202,15 +217,14 @@ public class FormAerodrome {
 					break;
 				case 2:
 					guns = new AircraftsMegaGuns();
-				break;
-					
+					break;
+
 				}
-				panelAerodrome.AddSeveralAircraft(aircraft,guns, count);
+				panelAerodrome.AddSeveralAircraft(aircraft, guns, count);
 				panelAerodrome.repaint();
 			}
 		});
-		btnAddSeveralAttackAircraft.setBounds(1061, 57, 182, 35);
+		btnAddSeveralAttackAircraft.setBounds(1119, 57, 182, 35);
 		frame.getContentPane().add(btnAddSeveralAttackAircraft);
-
 	}
 }
