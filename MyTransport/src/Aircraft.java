@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -94,3 +95,4 @@ public class Aircraft extends FlyingObject {
 			g.fillOval(_startPosX + 60, _startPosY + 25, 20, 10);
 	    }
 }
+
