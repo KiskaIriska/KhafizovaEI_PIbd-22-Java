@@ -47,15 +47,10 @@ public class AircraftsMegaGuns implements IGuns {
 		g.fillRect(x + 80, y + 40, 5, 15);
 
 	}
-
 	@Override
-
-	public  void DrawGuns(Graphics g, int x, int y) {
-		
+	public  void DrawGuns(Graphics g, int x, int y) {		
 		g.fillRect(x, y + 1, 45, 3);
-
 	}
-
 	@Override
 	public  void DrawAeroGuns(Graphics g, int x, int y) 
 	{
@@ -79,6 +74,4 @@ public class AircraftsMegaGuns implements IGuns {
 		IGuns gun = new AircraftsMegaGuns();
 		return gun;
 	}
-	
-
 }
