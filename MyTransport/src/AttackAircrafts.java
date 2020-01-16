@@ -43,8 +43,10 @@ public class AttackAircrafts extends Aircraft{
     @Override
     public void DrawAircraft(Graphics g)
     {	
+    	
         super.DrawAircraft(g);
         guns.NumberGuns(num, g, _startPosX, _startPosY);
+        
         if (Propeller) 
         {
             g.setColor(DopColor); 
@@ -55,35 +57,18 @@ public class AttackAircrafts extends Aircraft{
         }
 
         if (Turbines)
-        {
-            g.setColor(Color.darkGray);
+        {     
+            g.setColor(dopColor);
             g.fillRect( _startPosX + 5, _startPosY + 15, 20, 5);
             g.fillRect( _startPosX + 5, _startPosY + 40, 20, 5);
         }
 
         if (Flag)
         {
-            g.setColor(Color.red);
+            g.setColor(dopColor);
             g.fillRect( _startPosX + 65, _startPosY + 10, 5, 5);
             g.fillRect( _startPosX + 65, _startPosY + 45, 5, 5);
         }
     }	
-    public void drawBasement(Graphics g) {
-    	int[] xPoints = {_startPosX - 45, _startPosX + 45, 
-        		_startPosX + 30, _startPosX - 40};
-        int[] yPoints = {_startPosY + 10, _startPosY + 10, 
-        		_startPosY + 25, _startPosY + 25};
-        int nPoints = 4;
-        g.setColor(mainColor);
-        g.fillPolygon(xPoints, yPoints, nPoints);
-        g.setColor(Color.black);
-        g.drawPolygon(xPoints, yPoints, nPoints);
-        for (int i = _startPosX-35; i <= _startPosX + 25; i += 15)
-        {
-        	g.setColor(dopColor);
-            g.fillOval(i, _startPosY + 17, 3, 3);
-            g.setColor(Color.black);
-            g.drawOval(i, _startPosY + 17, 3, 3);
-        }
-    }
+   
 }

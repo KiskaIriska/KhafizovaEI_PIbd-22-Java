@@ -135,23 +135,22 @@ public class FormAerodrome {
 		btnTake.setBounds(1107, 86, 170, 25);
 		frame.getContentPane().add(btnTake);
 
-		JButton btnShowCollection = new JButton("\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F");
-		btnShowCollection.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CollectionInfo info = new CollectionInfo();
-				info.showCollection(storageTransport, storageGuns);
-				info.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				info.setVisible(true);
-			}
-		});
-		btnShowCollection.setBounds(929, 406, 119, 23);
-		frame.getContentPane().add(btnShowCollection);
-
 		
 		panelTake = new TakePanel();
 		panelTake.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelTake.setBounds(891, 286, 410, 186);
 		frame.getContentPane().add(panelTake);
+		
+				JButton btnShowCollection = new JButton("\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F");
+				panelTake.add(btnShowCollection);
+				btnShowCollection.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						CollectionInfo info = new CollectionInfo();
+						info.showCollection(storageTransport, storageGuns);
+						info.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						info.setVisible(true);
+					}
+				});
 
 		panelAerodrome = new PanelAerodrome(aerodrome.getAerodrome(0));
 		panelAerodrome.setBorder(new LineBorder(new Color(0, 0, 0)));
