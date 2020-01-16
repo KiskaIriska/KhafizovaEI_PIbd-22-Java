@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
