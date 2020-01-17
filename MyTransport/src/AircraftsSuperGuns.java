@@ -40,7 +40,7 @@ public class AircraftsSuperGuns implements IGuns {
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y + 1, 35, 3);
 
-
+	}
 	@Override
 	public void DrawAeroGuns(Graphics g, int x, int y) {
 		DrawGuns(g, x + 55, y + 5);
