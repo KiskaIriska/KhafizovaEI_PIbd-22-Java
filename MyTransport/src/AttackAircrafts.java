@@ -16,14 +16,17 @@ public class AttackAircrafts extends Aircraft{
     public boolean Flag; { 
     	Set get; 
     	}
-
-    public AttackAircrafts(int maxSpeed, float weight, Color mainColor, Color dopColor, boolean turbines,
+    private Number num;
+    private IGuns guns;
+    public AttackAircrafts(int maxSpeed, float weight,Number num, Color mainColor, Color dopColor, boolean turbines,
         boolean propeller, boolean flag) {
         super(maxSpeed, weight, mainColor);
         this.DopColor = dopColor;
         this.Turbines = turbines;
         this.Propeller = propeller;
         this.Flag = flag;
+        this.setNumber(num);
+        guns = new AircraftsGuns();
     }
     public int getX() {
 		return _startPosX;		
@@ -31,12 +34,20 @@ public class AttackAircrafts extends Aircraft{
 	public int getY() {
 		return _startPosY;		
 	}
-	
+	public Number getNumber() {
+		return num;
+	}
+	private void setNumber(Number num) {
+		this.num = num;
+	}
     @Override
     public void DrawAircraft(Graphics g)
     {	
+    	
         super.DrawAircraft(g);
-        if (Propeller)
+        guns.NumberGuns(num, g, _startPosX, _startPosY);
+        
+        if (Propeller) 
         {
             g.setColor(DopColor); 
             g.fillOval( _startPosX + 93, _startPosY + 13, 5, 18);
@@ -46,24 +57,18 @@ public class AttackAircrafts extends Aircraft{
         }
 
         if (Turbines)
-        {
-            g.setColor(Color.darkGray);
+        {     
+            g.setColor(dopColor);
             g.fillRect( _startPosX + 5, _startPosY + 15, 20, 5);
             g.fillRect( _startPosX + 5, _startPosY + 40, 20, 5);
         }
 
         if (Flag)
         {
-            g.setColor(Color.red);
+            g.setColor(dopColor);
             g.fillRect( _startPosX + 65, _startPosY + 10, 5, 5);
             g.fillRect( _startPosX + 65, _startPosY + 45, 5, 5);
         }
     }	
-    
-    @Override
-	public ITransport Clone() {
-		ITransport air = new AttackAircrafts(this.maxSpeed, this.weight, this.mainColor, this.DopColor, this.Turbines,
-				this.Propeller, this.Flag);
-		return air;
-	}
+   
 }

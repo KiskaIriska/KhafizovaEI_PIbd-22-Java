@@ -8,6 +8,12 @@ public interface ITransport {
 
 	void DrawAircraft(Graphics g);
 
+	void drawBasement(Graphics g);
+
+	void setMainColor(Color color);
+
+	void setDopColor(Color color);
+
 	Color getMainColor();
 
 	Color getDopColor();
@@ -16,5 +22,4 @@ public interface ITransport {
 
 	int getStartPosY();
 
-	ITransport Clone();
 }
